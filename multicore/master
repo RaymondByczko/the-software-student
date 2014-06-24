@@ -1,0 +1,9 @@
+#!/bin/bash
+taskset 0x00000001 ./runner01 &
+# Get most recent background process id
+runner01pid=$!
+taskset 0x00000002 ./runner02 &
+# Get most recent background process id
+runner02pid=$!
+echo "runner01pid="$runner01pid
+echo "runner02pid="$runner02pid
