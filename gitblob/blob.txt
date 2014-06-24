@@ -1,0 +1,155 @@
+Introduction
+
+Version control must be one of the organs of the 'software body'.
+It not only allows you to write source code files and keep track
+of how they change, but there are other important ancillary benefits.
+One is that by performing a certain operation, you are backing up
+your files - they are stored on some GIT or Subversion machine - and
+thus away for your machine.  But another benefit piques my interest
+especially.
+
+By knowing certain 'under the automobile hood' operations, you can determine
+if a file matches - content wise - that of a file in the revision storage.
+And it can be done anywhere in the history of any file.  For me,
+this is a very powerful concept with practical implications.  Ever
+have your web site hacked?  Ever have a suspicion your site was hacked but
+might not know how to approach it?  This blog gives the foundation to
+approaching this problem.
+
+GIT Background
+
+This blog will focus on GIT revision control.  While not intended as a
+tutorial on GIT, here are some commands that are useful for this blog.
+To help in learning this, I have established a public git repository.
+
+git log
+
+To see the revision history, as it ONLY pertains to one file, say sample.txt,
+you can issue the following:
+
+git log sample.txt
+
+You should see something like:
+<pre>
+
+nd@raymond-desktop:~/websites/thesoftwarestudent/gitblob$ git log sample.txt
+commit 9f68a70e652f1bbc62a8fa0cc4589c33ff6e3f27
+Author: Raymond Byczko <raymondbyczko@att.net>
+Date:   Tue Jun 24 09:36:04 2014 -0400
+
+    self-RByczko; 2014-06-24 June 24; Getting gitblob blog ready-introducing revision to sampl
+
+commit 02768fe3e035fe060630b605ee4f689943f80b46
+Author: Raymond Byczko <raymondbyczko@att.net>
+Date:   Tue Jun 24 09:35:00 2014 -0400
+
+    self-RByczko; 2014-06-24 June 24; Getting gitblob blog ready.
+</pre>
+This is not the entire revision history of everything; it just shows where in
+that history was sample.txt involved.  It shows it was involved in two commits with
+commit numbers, in shortened form, of: 9f68a, 02768 .  Remember these two numbers!
+
+git cat-file
+
+The cat-file argument to git is very useful.  For this blog we will explore how to
+read from the revision history certain important items of information.  One of these
+items is the sha1 digest value (a hash value) of a certain object in the revision
+history.
+
+As you can see from git log, there are two versions of sample.txt.  One version
+of sample.txt has a single line - "First line".  The other version has an additonal
+line - "Second line".  Simple.  A unique version of sample.txt cannot be identified
+by just using the file name - sample.txt.  Something else is needed.  A non-software
+person might say "Give me sample.txt, version 1" for example.  This approach is
+close.  Remember those two numbers I asked you to remember?  Each of those will
+serve as the version specifier.  The correct approach is to say "Give me 9f68a:sample.txt".
+
+The exact command to look at sample.txt version 1 is therefore like this.
+<pre>
+echo '02768:./sample.txt'|git cat-file --batch
+</pre>
+Likewise the command to look at sample.txt version 2 is as follows.
+<pre>
+echo '9f68a:./sample.txt'|git cat-file --batch
+</pre>
+Here are the outputs from thos commands respective.
+<pre>
+9649cde946d8d0896fa80977b9bcd76439f99e6b blob 11
+First line
+
+</pre>
+And the output from the second command.
+<pre>
+7d91453217afc429984c4706e8df22aaac47c9ce blob 23
+First line
+Second line
+
+</pre>
+These respective outputs are facets on the diamond that we can compare git to.
+Especially those long numeric values. Now remember those two!  They are
+9649c and 7d914 respectively.
+
+These are the sha1 digest of each version of sample.txt.  Its a little more complicated
+than taking just the contents of each version, but not my much.  The following
+section covers how.
+
+The Automobile Hood
+
+Underneath GIT, is a set of operations that can be invoked completely outside of
+GIT.  GIT is using these operations.  But you can also!
+
+I have indicate use of these operations in a bash script I wrote, gitdigest.
+Its source is at my github account at LINK.  Here is the source
+to that program.
+<pre>
+
+</pre>
+n digest()
+{
+    local var theFile
+    if [ $(($# != 1)) = 1 ]; then
+        echo 'Ending early'
+        return 1
+    fi
+    theFile=$1
+    echo 'theFile='$theFile
+    lenFile=$(stat -c%s "$theFile")
+    echo 'lenFile='$lenFile
+    sha1File=$(/bin/echo -e -n "blob ${lenFile}\000"|cat - ${theFile}|openssl dgst -sha1)
+    digest=$(echo $sha1File|sed 's/(stdin)= //')
+    # echo 'sha1File='$sha1File
+    echo $digest
+    return 0
+}
+
+# digest 'myfile'
+# digest 'xfile' 'yfile'
+
+inputFile=$1
+if digest "$inputFile"
+then
+    echo 'digest successful'
+else
+    echo 'digest unsuccessful'
+fi
+</pre>
+It turns out that computing sha1File in this script is at the heart of producing values
+like those later two I asked you to remember (the values 9649c and 7d914)
+I just give gitdigest a filename and see if it produces the same value.
+So, from within 
+
+Lets do the following operation.
+
+<pre>
+git cat-file -p 02768:./sample.txt>first.txt
+</pre>
+
+This produces version 1 of sample.txt which I have named first.txt.
+
+Lets do the the same operation for version 2.  It would be:
+
+<pre>
+git cat-file -p 9f68a:./sample.txt>second.txt
+</pre>
+I have put first.txt and second.txt in version control if you need it.
+
