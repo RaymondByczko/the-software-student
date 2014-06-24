@@ -6,6 +6,6 @@ declare -i i=5001
 while [ $i -lt 10000 ]; do
 	echo "i= $i"
 	i=$i+1
-	sleep .01
+	sleep 0.01
 done
 exit 0
