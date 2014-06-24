@@ -1,0 +1,30 @@
+#!/bin/bash
+
+function digest()
+{
+	local var theFile
+	if [ $(($# != 1)) = 1 ]; then
+		echo 'Ending early'
+		return 1
+	fi
+	theFile=$1
+	echo 'theFile='$theFile
+	lenFile=$(stat -c%s "$theFile")
+	echo 'lenFile='$lenFile
+	sha1File=$(/bin/echo -e -n "blob ${lenFile}\000"|cat - ${theFile}|openssl dgst -sha1)
+	digest=$(echo $sha1File|sed 's/(stdin)= //')
+	# echo 'sha1File='$sha1File
+	echo $digest
+	return 0
+}
+
+# digest 'myfile'
+# digest 'xfile' 'yfile'
+
+inputFile=$1
+if digest "$inputFile"
+then
+	echo 'digest successful'
+else
+	echo 'digest unsuccessful'
+fi
