@@ -10,7 +10,8 @@ obtained.
 The functions focused on here are php string functions.
 This includes:
 
-	* chunk_split	(explored with chunk1.php to chunk2.php)
+	* chunk_split	(explored with chunk1.php to chunk4.php)
+	* count_chars	(explored with count1.php to count7.php)
 
 The filenames are such that *2.php is evolved from *1.php etc.
 In general, this is true, but not always.  Oftentimes, when
