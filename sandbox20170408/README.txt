@@ -12,6 +12,7 @@ This includes:
 
 	* chunk_split	(explored with chunk1.php to chunk4.php)
 	* count_chars	(explored with count1.php to count7.php)
+	* crc32			(explored with crc1.php to crc4.php)
 
 The filenames are such that *2.php is evolved from *1.php etc.
 In general, this is true, but not always.  Oftentimes, when
