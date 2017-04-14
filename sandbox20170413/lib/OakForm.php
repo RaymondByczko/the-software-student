@@ -1,4 +1,14 @@
 <?php
+/*
+ * @file OakForm.php
+ * @location thesoftwarestudent/sandbox20170413/lib/
+ * @author Raymond Byczko
+ * @company self
+ * @purpose This php file presents a class to present a form for Oak registration.
+ * @change_history 2017-04-14 April 14, 2017, Added validation_form.
+ */
+?>
+<?php
 	class OakForm
 	{
 		private $m_method = NULL;
@@ -13,10 +23,49 @@
 		{
 			$this->m_validation = $enable;
 		}
+
+		/*
+		 * validation_form This function produces a javascript-html fragment for the
+		 * correct javascript code to call if validation is enabled.  Otherwise it
+		 * returns an empty string.
+		 *
+		 * @note validformdata is in oakvalidate.js
+		 */
+		public function validation_form()
+		{
+			$ret_string = '';
+			if ($this->m_validation)
+			{
+				$ret_string = 'onsubmit="validformdata();"';
+				// $ret_string = 'onsubmit="dothis();"';
+
+				// $ret_string = "onsubmit="alert('inside validate form');"";
+
+				
+				/*
+				$ret_string .= 'onsubmit=';
+				$ret_string .= '"';
+				$ret_string .= 'alert(';
+				$ret_string .= "'inside validate form'";
+				$ret_string .= ');';
+				$ret_string .= 'return false;"';
+				*/
+				
+			}
+			return $ret_string;
+		}
 		public function output()
 		{
+			/* if validation is enabled, bring in the javascript code we need for it. */
+			/* @todo The specification of an external javascript file needs to be done elsewhere. */
+			if ($this->m_validation)
+			{
 ?>
-			<form action="<?php echo $this->m_action; ?>" method="<?php echo $this->m_method; ?>">
+				<!--<script type="text/javascript" src="/sandbox20170413/js/oakvalidate.js"></script>-->
+<?php
+			}
+?>
+			<form name="oak_form" action="<?php echo $this->m_action; ?>" method="<?php echo $this->m_method; ?>" <?php echo $this->validation_form(); ?>>
 
 			<label for="id_oak_name">Oak User</label>
 			<input type="text" name="oak_name" id="id_oak_name" /><br>
@@ -24,6 +73,9 @@
 			<input type="text" name="oak_email" id="id_oak_email" /><br>
 			<input type="submit" name="oak_submit" value="Add Oak User!" id="id_oak_email" /><br>
 			</form>
+
+			<!-- @todo This should be removed. -->
+			<script type="text/javascript" src="/sandbox20170413/js/oakvalidate.js"></script>
 	
 <?php
 		}
