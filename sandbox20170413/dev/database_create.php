@@ -8,16 +8,15 @@
  * Oak Services.
  * @change_history 2017-04-14 April 14, 2017, Added file documentation, DOCTYPE, and
  * javascript validate file.
+ * @change_history 2017-05-02 May 2, 2017, Used centrally decided config for database file,
+ * via ConfigDatabase.
  */
 ?>
 <?php
 require 'sandbox20170413/lib/OakDatabase.php';
+require 'sandbox20170413/config/config_database.php';
 
-// $dbfile='/sandbox20170413/db/oakdatabase_a.sqlite';
-// $dbfile='oakdatabase_a.sqlite';
-// $dbfile='/tmpdatabase/oakdatabase_a.sqlite';
-
-$dbfile='../db/oakdatabase_t.sqlite';
+$dbfile = ConfigDatabase::file();
 
 $objOakDatabase = new OakDatabase($dbfile);
 $objOakDatabase->open();

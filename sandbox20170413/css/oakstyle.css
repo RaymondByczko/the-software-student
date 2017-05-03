@@ -1,3 +1,4 @@
+/* be aware of wwwidth etc */
 .std_oak_form  {
 	border-style: groove;
 	border-radius: 25px;
@@ -8,17 +9,31 @@
 	border-style: groove;
 	border-radius: 25px;
 	padding: 20px;
+	/* wwwidth: 100%; */
 }
 
 .flex-container {
     display: -webkit-flex;
     display: flex;
-    width: 400px;
+    /* wwwidth: 400px; */
+	width: 100%;
     height: 250px;
     background-color: lightgrey;
 	border-style: groove;
 	border-radius: 25px;
 	padding: 20px;
+	justify-content:center;
+}
+
+.flex-container-b {
+    display: -webkit-flex;
+    display: flex;
+	width: 100%;
+    background-color: lightgrey;
+	border-style: groove;
+	border-radius: 25px;
+	padding: 20px;
+	justify-content:center;
 }
 
 .flex-item {
@@ -26,4 +41,15 @@
     width: 100px;
     height: 100px;
     margin: 10px;
+}
+
+.flex-item-b {
+    background-color: cornflowerblue;
+    margin: 10px;
+}
+
+.col-style {
+	border-style: groove;
+	background-color: cornflowerblue;
+}
 }
