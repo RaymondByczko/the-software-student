@@ -11,12 +11,15 @@
  * @change_history 2017-05-06 May 6, 2017, Added message area at top.
  * Inserted form into flex-item-b.  Added Home, Database buttons/links on bottom.
  * Added bootstrap stylesheets.
+ * @change_history 2017-05-22 May 22, 2017, Added oakstylecolumn.css to make columns of
+ * equal height.
  */
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="../css/oakstyle.css">
+<link rel="stylesheet" type="text/css" href="../css/oakstylecolumn.css">
 <script type="text/javascript" src="/sandbox20170413/js/oakvalidate.js"></script>
 <link href="/sandbox20170413/extern/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="/sandbox20170413/extern/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet">

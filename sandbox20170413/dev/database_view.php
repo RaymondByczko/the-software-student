@@ -8,6 +8,8 @@
  * associated with Oak Services.
  * @change_history 2017-05-02 May 02, 2017, Started this file.
  * Originally copied from database.php .
+ * @change_history 2017-05-06 May 6, 2017, Added <empty> filler for
+ * when fields are empty.
  */
 ?>
 <!DOCTYPE html>
@@ -59,13 +61,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 <?php
 foreach ($oakDatabaseResults as $oakRow)
 {
+
+	$oakRowA = array();
+	$oakRowA['submission_id']= $oakRow['submission_id']==''?'<empty>':$oakRow['submission_id'];
+	$oakRowA['name'] 		= $oakRow['name']==''?'<empty>':$oakRow['name'];
+	$oakRowA['email']		= $oakRow['email']==''?'<empty>':$oakRow['email'];
+	$oakRowA['utc_time']	= $oakRow['utc_time']==''?'<empty>':$oakRow['utc_time'];
+	$oakRowA['local_time']	= $oakRow['local_time']==''?'<empty>':$oakRow['local_time'];
 ?>
 <div class="row">
-	<div class="col-md-2 col-style"><?php echo $oakRow['submission_id'];?></div>
-	<div class="col-md-3 col-style"><?php echo $oakRow['name'];?></div>
-	<div class="col-md-3 col-style"><?php echo $oakRow['email'];?></div>
-	<div class="col-md-2 col-style"><?php echo $oakRow['utc_time'];?></div>
-	<div class="col-md-2 col-style"><?php echo $oakRow['local_time'];?></div>
+	<div class="col-md-2 col-style"><?php echo $oakRowA['submission_id'];?></div>
+	<div class="col-md-3 col-style"><?php echo $oakRowA['name'];?></div>
+	<div class="col-md-3 col-style"><?php echo $oakRowA['email'];?></div>
+	<div class="col-md-2 col-style"><?php echo $oakRowA['utc_time'];?></div>
+	<div class="col-md-2 col-style"><?php echo $oakRowA['local_time'];?></div>
 </div>
 <?php
 }

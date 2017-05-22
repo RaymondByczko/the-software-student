@@ -6,6 +6,7 @@
  * @company self
  * @purpose This php file presents a class to present a form for Oak registration.
  * @change_history 2017-04-14 April 14, 2017, Added validation_form.
+ * @change_history 2017-05-15 May 15, 2017, Added bootstrap grid around signup form.
  */
 ?>
 <?php
@@ -65,14 +66,36 @@
 <?php
 			}
 ?>
+			<div class="class_outer_oak_form">
+			<div class="class_oak_form">
 			<form name="oak_form" action="<?php echo $this->m_action; ?>" method="<?php echo $this->m_method; ?>" <?php echo $this->validation_form(); ?>>
 
+			<div class="row row-eq-height" style="">
+			<div class="col-md-6 col-style" style="" >
 			<label for="id_oak_name">Oak User</label>
-			<input type="text" name="oak_name" id="id_oak_name" /><br>
+			</div>
+			<div class="col-md-6 col-style" style="" >
+			<input type="text" name="oak_name" id="id_oak_name" />
+			</div>
+			</div>
+			<div class="row row-eq-height">
+			<div class="col-md-6 col-style">
 			<label for="id_oak_email">Oak Email</label>
-			<input type="text" name="oak_email" id="id_oak_email" /><br>
+			</div>
+			<div class="col-md-6 col-style">
+			<input type="text" name="oak_email" id="id_oak_email" />
+			</div>
+			</div>
+			<div class="row row-eq-height">
+			<div class="col-md-6 col-style">
 			<input type="submit" name="oak_submit" value="Add Oak User!" id="id_oak_email" /><br>
+			</div>
+			<div class="col-md-6 col-style">
+			</div>
+			</div>
 			</form>
+			</div>
+			</div>
 
 			<!-- @todo This should be removed. -->
 			<script type="text/javascript" src="/sandbox20170413/js/oakvalidate.js"></script>

@@ -46,10 +46,27 @@
 .flex-item-b {
     background-color: cornflowerblue;
     margin: 10px;
+	width: 500px;
 }
 
 .col-style {
 	border-style: groove;
 	background-color: cornflowerblue;
 }
+.class_oak_form {
+	margin-left: 15px;
+}
+.class_outer_oak_form {
+	margin-left: -15px;
+	background-color: cornflowerblue;
+}
+.ha {
+	height: 100%;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
 }
